@@ -8,5 +8,12 @@ class HomeViewModel(tourismUseCase: TourismUseCase) : ViewModel() {
 
     val tourism = tourismUseCase.getAllTourism()
 
+
+
+
+
+
+
+
 }
 

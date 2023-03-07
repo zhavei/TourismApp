@@ -11,6 +11,9 @@ import com.dicoding.tourismapp.databinding.ActivityMainBinding
 import com.dicoding.tourismapp.favorite.FavoriteFragment
 import com.dicoding.tourismapp.home.HomeFragment
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +44,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
             supportActionBar?.title = getString(R.string.app_name)
         }
+
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -69,5 +74,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
 }
 
