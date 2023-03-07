@@ -41,15 +41,15 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
     implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     implementation "androidx.multidex:multidex:$multidex_version"
 
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
     implementation "androidx.cardview:cardview:$cardview_version"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     implementation "com.google.android.material:material:$material_version"
@@ -72,8 +72,12 @@ dependencies {
 
     //coroutine Flow
     // Library dasar coroutine
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.6"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
 
 // Library untuk memudahkan threading di Android
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+
+    implementation "androidx.activity:activity-ktx:$activity_ktx_version" //by viewModels()
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime_ktx_version" //lifecycleScope
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_livedata_ktx_version" //asLiveData
 }
