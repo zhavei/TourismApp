@@ -1,14 +1,12 @@
 package com.dicoding.tourismapp.core.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
+import kotlinx.coroutines.flow.*
 
-import com.dicoding.tourismapp.core.utils.AppExecutors
+abstract class NetworkBoundResource<ResultType, RequestType> {
 
-abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
-
-    private val result = MediatorLiveData<Resource<ResultType>>()
+    //non flow
+    /*private val result = MediatorLiveData<Resource<ResultType>>()
 
     init {
         result.value = Resource.Loading(null)
@@ -26,19 +24,45 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
                 }
             }
         }
+    }*/
+
+    private var result: Flow<Resource<ResultType>> = flow {
+
+        emit(Resource.Loading())
+
+        val dbSource = loadFromDB().first()
+        if (shouldFetch(dbSource)) {
+            emit(Resource.Loading())
+            when (val apiResponse = createCall().first()) {
+                is ApiResponse.Success -> {
+                    saveCallResult(apiResponse.data)
+                    emitAll(loadFromDB().map { Resource.Success(it) })
+                }
+                is ApiResponse.Empty -> {
+                    emitAll(loadFromDB().map { Resource.Success(it) })
+                }
+                is ApiResponse.Error -> {
+                    onFetchFailed()
+                    emit(Resource.Error<ResultType>(apiResponse.errorMessage))
+                }
+            }
+        } else {
+            emitAll(loadFromDB().map { Resource.Success(it) })
+        }
     }
 
     protected open fun onFetchFailed() {}
 
-    protected abstract fun loadFromDB(): LiveData<ResultType>
+    protected abstract fun loadFromDB(): Flow<ResultType>
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
 
-    protected abstract fun saveCallResult(data: RequestType)
+    protected abstract suspend fun saveCallResult(data: RequestType)
 
-    private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
+    //region use live data
+    /*private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
 
         val apiResponse = createCall()
 
@@ -71,7 +95,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
                 }
             }
         }
-    }
+    }*/
+    //endregion
 
-    fun asLiveData(): LiveData<Resource<ResultType>> = result
+    fun asFlow(): Flow<Resource<ResultType>> = result
+    /*fun asLiveData(): LiveData<Resource<ResultType>> = result*/
 }

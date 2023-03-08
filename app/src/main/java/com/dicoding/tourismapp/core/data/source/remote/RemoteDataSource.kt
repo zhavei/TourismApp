@@ -10,6 +10,10 @@ import com.dicoding.tourismapp.core.data.source.remote.network.ApiService
 import com.dicoding.tourismapp.core.data.source.remote.response.ListTourismResponse
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.utils.JsonHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,11 +30,11 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             }
     }
 
-    fun getAllTourism(): LiveData<ApiResponse<List<TourismResponse>>> {
-        val resultData = MutableLiveData<ApiResponse<List<TourismResponse>>>()
+    suspend fun getAllTourism(): Flow<ApiResponse<List<TourismResponse>>> {
+        /*val resultData = MutableLiveData<ApiResponse<List<TourismResponse>>>()
 
         //region get data from local json
-        /*  val handler = Handler(Looper.getMainLooper())
+        *//*  val handler = Handler(Looper.getMainLooper())
           handler.postDelayed({
               try {
                   val dataArray = jsonHelper.loadData()
@@ -43,10 +47,10 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
                   resultData.value = ApiResponse.Error(e.toString())
                   Log.e("RemoteDataSource", e.toString())
               }
-          }, 2000)*/
+          }, 2000)*//*
         //endregion
 
-        //CALL NETWORK
+        //CALL NETWORK with livedata
         val client = apiService.getList()
 
         client.enqueue(object : Callback<ListTourismResponse> {
@@ -69,7 +73,23 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
 
         })
 
-        return resultData
+        return resultData*/
+
+        return flow {
+            try {
+                val response = apiService.getList()
+                val dataArray = response.places
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.places))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: java.lang.Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e(" TAG Remote Data Source", "getAllTourism: ${e.toString()}")
+            }
+        }.flowOn(Dispatchers.IO)
+
     }
 }
 
