@@ -6,6 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+//since using depedency injection not using this claas anymore
+/*
 object ApiConfig {
 
 
@@ -27,4 +29,4 @@ object ApiConfig {
         return retrofit.create(ApiService::class.java)
     }
 
-}
+}*/

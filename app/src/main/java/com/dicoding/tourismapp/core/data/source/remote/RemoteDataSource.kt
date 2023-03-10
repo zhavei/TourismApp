@@ -19,8 +19,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteDataSource private constructor(private val apiService: ApiService) {
-    companion object {
+class RemoteDataSource(private val apiService: ApiService) {
+   //to manualy get instance of remote datasouce
+    /*companion object {
         @Volatile
         private var instance: RemoteDataSource? = null
 
@@ -28,7 +29,7 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             instance ?: synchronized(this) {
                 instance ?: RemoteDataSource(service)
             }
-    }
+    }*/
 
     suspend fun getAllTourism(): Flow<ApiResponse<List<TourismResponse>>> {
         /*val resultData = MutableLiveData<ApiResponse<List<TourismResponse>>>()

@@ -1,12 +1,8 @@
 package com.dicoding.tourismapp.core.data
 
-import android.provider.ContactsContract.Data
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
-import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
+import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
@@ -15,13 +11,14 @@ import com.dicoding.tourismapp.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class TourismRepository private constructor(
+class TourismRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : ITourismRepository {
 
-    companion object {
+    /** to manually get instance of tourism repository*/
+    /*companion object {
         @Volatile
         private var instance: TourismRepository? = null
 
@@ -33,7 +30,7 @@ class TourismRepository private constructor(
             instance ?: synchronized(this) {
                 instance ?: TourismRepository(remoteData, localData, appExecutors)
             }
-    }
+    }*/
 
     override fun getAllTourism(): Flow<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {

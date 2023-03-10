@@ -1,20 +1,7 @@
 package com.dicoding.tourismapp.core.di
 
-import android.content.Context
-
-import com.dicoding.tourismapp.core.data.source.local.LocalDataSource
-import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
-
-import com.dicoding.tourismapp.core.data.TourismRepository
-import com.dicoding.tourismapp.core.data.source.remote.RemoteDataSource
-import com.dicoding.tourismapp.core.data.source.remote.network.ApiConfig
-import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
-import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
-import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
-import com.dicoding.tourismapp.core.utils.AppExecutors
-import com.dicoding.tourismapp.core.utils.JsonHelper
-
-object Injection {
+//not using this class since using depedency injection its been handled by koin
+/*object Injection {
     fun provideRepository(context: Context): ITourismRepository {
         val database = TourismDatabase.getInstance(context)
 
@@ -29,4 +16,4 @@ object Injection {
         val repository = provideRepository(context)
         return TourismInteractor(repository)
     }
-}
+}*/
