@@ -81,4 +81,10 @@ dependencies {
     implementation "androidx.activity:activity-ktx:$activity_ktx_version" //by viewModels()
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime_ktx_version" //lifecycleScope
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_livedata_ktx_version" //asLiveData
+
+    //koin
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+
 }
