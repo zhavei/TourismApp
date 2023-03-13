@@ -17,6 +17,5 @@ interface CoreComponent {
         fun create(@BindsInstance context: Context): CoreComponent
     }
 
-    fun provideRepository(): ITourismRepository
-
+    fun provideRepository() : ITourismRepository
 }
