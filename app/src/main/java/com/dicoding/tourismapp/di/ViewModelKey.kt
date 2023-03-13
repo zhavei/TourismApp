@@ -1,6 +1,9 @@
 package com.dicoding.tourismapp.di
 
 import androidx.lifecycle.ViewModel
+import dagger.MapKey
+import kotlin.reflect.KClass
+
 
 @MustBeDocumented
 @Target(
