@@ -6,6 +6,7 @@ import androidx.annotation.VisibleForTesting
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import javax.inject.Inject
 
 //uses this if not using flow
 class AppExecutors @VisibleForTesting constructor(
@@ -18,6 +19,7 @@ class AppExecutors @VisibleForTesting constructor(
         private const val THREAD_COUNT = 3
     }
 
+    @Inject
     constructor() : this(
         Executors.newSingleThreadExecutor(),
         Executors.newFixedThreadPool(THREAD_COUNT),

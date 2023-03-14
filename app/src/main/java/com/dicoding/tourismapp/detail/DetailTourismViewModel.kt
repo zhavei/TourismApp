@@ -5,8 +5,10 @@ import com.dicoding.tourismapp.core.data.TourismRepository
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class DetailTourismViewModel @Inject constructor(private val tourismUseCase: TourismUseCase) :
     ViewModel() {
     fun setFavoriteTourism(tourism: Tourism, newStatus: Boolean) =
