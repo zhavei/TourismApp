@@ -8,7 +8,7 @@ import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
 import kotlinx.coroutines.flow.Flow
 
 class TourismInteractor (private val tourismRepository: ITourismRepository) : TourismUseCase {
-    override fun getAllTourism(): Flow<Resource<List<Tourism>>> {
+    override fun getAllTourism(): Flow<com.dicoding.tourismapp.core.data.Resource<List<Tourism>>> {
         return tourismRepository.getAllTourism()
     }
 

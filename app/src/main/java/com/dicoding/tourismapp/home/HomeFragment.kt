@@ -47,12 +47,12 @@ class HomeFragment : Fragment() {
             homeViewModel.tourism.observe(viewLifecycleOwner) { tourism ->
                 if (tourism != null) {
                     when (tourism) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                        is Resource.Success -> {
+                        is com.dicoding.tourismapp.core.data.Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is com.dicoding.tourismapp.core.data.Resource.Success -> {
                             binding.progressBar.visibility = View.GONE
                             tourismAdapter.setData(tourism.data)
                         }
-                        is Resource.Error -> {
+                        is com.dicoding.tourismapp.core.data.Resource.Error -> {
                             binding.progressBar.visibility = View.GONE
                             binding.viewError.root.visibility = View.VISIBLE
                             binding.viewError.tvError.text =
