@@ -17,21 +17,6 @@ class TourismRepository(
     private val appExecutors: AppExecutors
 ) : ITourismRepository {
 
-    /** to manually get instance of tourism repository*/
-    /*companion object {
-        @Volatile
-        private var instance: TourismRepository? = null
-
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
-        ): TourismRepository =
-            instance ?: synchronized(this) {
-                instance ?: TourismRepository(remoteData, localData, appExecutors)
-            }
-    }*/
-
     override fun getAllTourism(): Flow<com.dicoding.tourismapp.core.data.Resource<List<Tourism>>> =
         object : com.dicoding.tourismapp.core.data.NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {
             override fun loadFromDB(): Flow<List<Tourism>> {
